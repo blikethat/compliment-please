@@ -83,7 +83,7 @@ function checkVal(input){
 
 myDataRef.on("value", function(snapshot) {
   var an_obj = snapshot.val();
-  console.log(Object.keys(an_obj)); 
+  console.log(Object.keys.child(an_obj)); 
 
 
 }, function (errorObject) {
