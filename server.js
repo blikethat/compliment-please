@@ -1,3 +1,4 @@
+var fs = require('fs');
 var twilio = require('twilio');
 if(!process.env.PRODUCTION){
   var whatever = require('./shhh.js');
@@ -14,7 +15,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: true
 }));
-app.use('/', express.static(__dirname + '/public'));
+app.use('/', express.static('./public'));
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -38,6 +39,11 @@ app.post('/inbound',function(req, res){
           console.log('Oops! There was an error.');
           console.log(error);
       }
+  });
+});
+app.get('/favicon.ico', function(req, res){
+  fs.readFileSync('./public/favicon.ico', function(data) {
+    res.send(data);
   });
 });
 
