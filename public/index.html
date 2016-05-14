@@ -81,8 +81,10 @@ function checkVal(input){
   }
 }
 
-myDataRef.child("").on("value", function(snapshot) {
-  alert(snapshot.val());
+ref.on("value", function(snapshot) {
+  console.log(snapshot.val());
+}, function (errorObject) {
+  console.log("The read failed: " + errorObject.code);
 });
 
 
