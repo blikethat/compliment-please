@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+</head>
+<body>
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Hello, Universe!</h1>
+      <p>This is a compliment project in progress...</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Add a compliment...</h2>
+        <div id='messagesDiv'></div>
+        <form action="" id="numero">
+          <input type="text" name="number" class="form-control" placeholder="your digits please">
+          <input type="submit" value="PRINT" class="btn btn-default">
+        </form>
+
+        <textarea type='text' id='messageInput' class="form-control" rows="3" placeholder="Sweet and sassy please. Don't make me blush..."></textarea>
+
+      </div>
+    </div>
+
+    <hr>
+
+    <footer>
+      <p>&copy; 2016 Jia &amp; Kamie + Hack Reactor Prep goodness</p>
+    </footer>
+  </div>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <script type="text/javascript">
+  //firebase
+  var myDataRef = new Firebase('https://compliment-please.firebaseio.com/compliments/');
+  $('#messageInput').keypress(function (e) {
+    console.log(myDataRef);
+    if (e.keyCode == 13) {
+      var text = $('#messageInput').val();
+      myDataRef.push({text: text});
+      $('#messageInput').val('');
+      $('#messagesDiv').text('Thank You!');
+    }
+  });
+
+  $('#numero').submit(function(){
+
+  var number = checkVal($('input[name="number"]').val());
+
+  $.ajax({
+    method: 'POST',
+    url: '/inbound',
+    crossDomain: true,
+    data: {
+      to: number
+    },
+    success: function(){
+      console.log('awesome sauce')
+    },
+    failure: function(){
+      console.log('is not an option')
+    }
+  });
+});
+function checkVal(input){
+  if(isNaN(input) === true){
+    return console.log("That is not a number. Try again.");
+  }else{
+    return parseInt(input);
+  }
+}
+
+
+
+  </script>
+
+
+</body>
+</html>
