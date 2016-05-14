@@ -81,8 +81,8 @@ function checkVal(input){
   }
 }
 
-myDataRef.child("compliments").on("value", function(snapshot) {
-  alert(snapshot.val());  
+myDataRef.child("compliments/text").on("value", function(snapshot) {
+  alert(snapshot.val());
 });
 
 
