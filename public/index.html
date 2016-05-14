@@ -82,7 +82,10 @@ function checkVal(input){
 }
 
 myDataRef.on("value", function(snapshot) {
-  console.log(snapshot.val());
+  var an_obj = snapshot.val();
+  console.log(Object.keys(an_obj)); 
+
+
 }, function (errorObject) {
   console.log("The read failed: " + errorObject.code);
 });
