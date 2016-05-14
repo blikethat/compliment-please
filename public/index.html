@@ -56,7 +56,6 @@
   });
 
   $('#numero').submit(function(){
-
   var number = checkVal($('input[name="number"]').val());
 
   $.ajax({
@@ -81,6 +80,10 @@ function checkVal(input){
     return parseInt(input);
   }
 }
+
+myDataRef.child("compliments").on("value", function(snapshot) {
+  alert(snapshot.val());  
+});
 
 
 
