@@ -5,6 +5,7 @@ if(!process.env.PRODUCTION){
   process.env.TWILIO_ACCOUNT_SID = whatever.TWILIO_ACCOUNT_SID;
   process.env.TWILIO_AUTH_TOKEN = whatever.TWILIO_AUTH_TOKEN;
   process.env.TWILIO_NUMBER = whatever.TWILIO_NUMBER;
+  process.env.PORT = 3000;
 }
 
 var client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
@@ -47,6 +48,6 @@ app.get('/favicon.ico', function(req, res){
   });
 });
 
-app.listen(3000, function(){
+app.listen(process.env.PORT, function(){
   console.log('listening on 3000');
 });
