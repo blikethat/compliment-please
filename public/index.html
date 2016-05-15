@@ -62,9 +62,8 @@
       var an_obj = snapshot.val();
       var complimentArray = Object.keys(an_obj);
       var randomNum = Math.floor(Math.random() * complimentArray.length);
-      var sendMe = complimentArray[randomNum].text;
-      console.log("This is snapshot: " + snapshot);
-      console.log("This is an_obj: " + an_obj);
+      var textSelect = complimentArray[randomNum];
+      var sendMe = an_obj[textSelect].text;
 
       $.ajax({
         method: 'POST',
