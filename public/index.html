@@ -56,40 +56,45 @@
   });
 
   $('#numero').submit(function(){
-  var number = checkVal($('input[name="number"]').val());
+    var number = checkVal($('input[name="number"]').val());
 
-  $.ajax({
-    method: 'POST',
-    url: '/inbound',
-    crossDomain: true,
-    data: {
-      to: number
-    },
-    success: function(){
-      console.log('awesome sauce')
-    },
-    failure: function(){
-      console.log('is not an option')
-    }
+    myDataRef.on("value", function(snapshot) {
+      var an_obj = snapshot.val();
+      var complimentArray = Object.keys(an_obj);
+      var randomNum = Math.floor(Math.random() * complimentArray.length);
+      var sendMe = complimentArray[randomNum].text;
+
+      $.ajax({
+        method: 'POST',
+        url: '/inbound',
+        crossDomain: true,
+        data: {
+          to: number,
+          body: sendMe
+        },
+        success: function(){
+          console.log('awesome sauce')
+        },
+        failure: function(){
+          console.log('is not an option')
+        }
+      });
+
+    }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });
+
+
   });
-});
-function checkVal(input){
-  if(isNaN(input) === true){
-    return console.log("That is not a number. Try again.");
-  }else{
-    return parseInt(input);
+  function checkVal(input){
+    if(isNaN(input) === true){
+      return console.log("That is not a number. Try again.");
+    }else{
+      return parseInt(input);
+    }
   }
-}
 
-myDataRef.on("value", function(snapshot) {
-  var an_obj = snapshot.val();
-  var complimentArray = Object.keys(an_obj);
-  console.log(complimentArray);
-  var randomNum = Math.floor(Math.random() * complimentArray.length);
-  console.log("the random number: " + randomNum);
-}, function (errorObject) {
-  console.log("The read failed: " + errorObject.code);
-});
+
 
 
 

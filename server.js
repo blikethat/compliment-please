@@ -29,7 +29,7 @@ app.post('/inbound',function(req, res){
   client.sendSms({
       to: req.body.to,
       from: process.env.TWILIO_NUMBER,
-      body:'Your kindness warms the room like a space heater in an ice cave'
+      body: req.body.body
   }, function(error, message) {
       if (!error) {
           console.log('Success! The SID for this SMS message is:');
