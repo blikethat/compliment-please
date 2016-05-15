@@ -84,8 +84,8 @@ function checkVal(input){
 myDataRef.on("value", function(snapshot) {
   var an_obj = snapshot.val();
   var complimentArray = Object.keys(an_obj);
-  console.log(Object.keys(an_obj));
-  var randomNum = Math.random() * complimentArray.length;
+  console.log(complimentArray);
+  var randomNum = Math.floor(Math.random() * complimentArray.length);
   console.log("the random number: " + randomNum);
 }, function (errorObject) {
   console.log("The read failed: " + errorObject.code);
