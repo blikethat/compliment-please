@@ -63,7 +63,8 @@
       var complimentArray = Object.keys(an_obj);
       var randomNum = Math.floor(Math.random() * complimentArray.length);
       var sendMe = complimentArray[randomNum].text;
-      console.log(sendMe);
+      console.log("This is snapshot: " + snapshot);
+      console.log("This is an_obj: " + an_obj);
 
       $.ajax({
         method: 'POST',
