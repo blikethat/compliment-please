@@ -2,6 +2,8 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title></title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
@@ -13,95 +15,95 @@
     <div class="container">
       <h1>Hello,</h1>
       <p>This is a compliment web app for all those times you need an encouraging word, smile, or maybe laugh &mdash; or when there are no new messages in any of your apps since you checked 30 seconds ago and you want to change that.<br>
-      <span style="font-size:.7em;">(It is a work in progress. <a href="http://www.blikethat.com/contact/">Have a feature idea? Let me know.)</a></span></p>
-    </div>
-  </div>
-
-  <div class="container col-xs-12">
-    <!-- Example row of columns -->
-    <div class="row">
-      <div class="col-md-12">
-        <div id='messagesDiv'></div>
-        <h2>Send a random compliment from the database by entering a number below and clicking <i>Send Now</i>.</h2>
-
-        <form action="" id="numero">
-          <input type="text" name="number" class="form-control col-md-3" placeholder="digits please"><br>
-          <input type="submit" value="Send Now" class="btn btn-default">
-        </form>
-        <br><br>
-        <h2>Add a compliment to the database.</h2>
-
-        <textarea type='text' id='messageInput' class="form-control" rows="3" placeholder="Sweet and sassy please."></textarea>
-
+        <span style="font-size:.7em;">(It is a work in progress. <a href="http://www.blikethat.com/contact/">Have a feature idea? Let me know.)</a></span></p>
       </div>
     </div>
 
-    <hr>
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-12">
+          <div id='messagesDiv'></div>
+          <h2>Send a random compliment from the database by entering a number below and clicking <i>Send Now</i>.</h2>
 
-    <footer>
-      <p>&copy; <a href="http://www.blikethat.com/" target="_blank">bLike(that)</a></p>
-    </footer>
-  </div>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-  <script type="text/javascript">
-  //firebase
-  var myDataRef = new Firebase('https://compliment-please.firebaseio.com/compliments/');
-  $('#messageInput').keypress(function (e) {
-    console.log(myDataRef);
-    if (e.keyCode == 13) {
-      var text = $('#messageInput').val();
-      myDataRef.push({text: text});
-      $('#messageInput').val('');
-      $('#messagesDiv').text('Thank You!');
-    }
-  });
+          <form action="" id="numero">
+            <input type="text" name="number" class="form-control col-md-3" placeholder="digits please"><br>
+            <input type="submit" value="Send Now" class="btn btn-default">
+          </form>
+          <br><br>
+          <h2>Add a compliment to the database.</h2>
 
-  $('#numero').submit(function(){
-    var number = checkVal($('input[name="number"]').val());
+          <textarea type='text' id='messageInput' class="form-control" rows="3" placeholder="Sweet and sassy please."></textarea>
 
-    myDataRef.on("value", function(snapshot) {
-      var an_obj = snapshot.val();
-      var complimentArray = Object.keys(an_obj);
-      var randomNum = Math.floor(Math.random() * complimentArray.length);
-      var textSelect = complimentArray[randomNum];
-      var sendMe = an_obj[textSelect].text;
+        </div>
+      </div>
 
-      $.ajax({
-        method: 'POST',
-        url: '/inbound',
-        crossDomain: true,
-        data: {
-          to: number,
-          body: sendMe
-        },
-        success: function(){
-          console.log('awesome sauce')
-        },
-        failure: function(){
-          console.log('is not an option')
-        }
-      });
+      <hr>
 
-    }, function (errorObject) {
-      console.log("The read failed: " + errorObject.code);
+      <footer>
+        <p>&copy; <a href="http://www.blikethat.com/" target="_blank">bLike(that)</a></p>
+      </footer>
+    </div>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+    //firebase
+    var myDataRef = new Firebase('https://compliment-please.firebaseio.com/compliments/');
+    $('#messageInput').keypress(function (e) {
+      console.log(myDataRef);
+      if (e.keyCode == 13) {
+        var text = $('#messageInput').val();
+        myDataRef.push({text: text});
+        $('#messageInput').val('');
+        $('#messagesDiv').text('Thank You!');
+      }
     });
 
+    $('#numero').submit(function(){
+      var number = checkVal($('input[name="number"]').val());
 
-  });
-  function checkVal(input){
-    if(isNaN(input) === true){
-      return console.log("That is not a number. Try again.");
-    }else{
-      return parseInt(input);
+      myDataRef.on("value", function(snapshot) {
+        var an_obj = snapshot.val();
+        var complimentArray = Object.keys(an_obj);
+        var randomNum = Math.floor(Math.random() * complimentArray.length);
+        var textSelect = complimentArray[randomNum];
+        var sendMe = an_obj[textSelect].text;
+
+        $.ajax({
+          method: 'POST',
+          url: '/inbound',
+          crossDomain: true,
+          data: {
+            to: number,
+            body: sendMe
+          },
+          success: function(){
+            console.log('awesome sauce')
+          },
+          failure: function(){
+            console.log('is not an option')
+          }
+        });
+
+      }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+      });
+
+
+    });
+    function checkVal(input){
+      if(isNaN(input) === true){
+        return console.log("That is not a number. Try again.");
+      }else{
+        return parseInt(input);
+      }
     }
-  }
 
 
 
 
 
-  </script>
+    </script>
 
 
-</body>
-</html>
+  </body>
+  </html>
