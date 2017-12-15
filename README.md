@@ -1,5 +1,9 @@
+# Fortune Kooky
+
+Use this app to:
+ * send a random fortune to a friend by entering their phone number
+ * add fortunes to the database
+
 This was my final project for Hack Reactor Remote Prep.
 
-It started as a compliment app and evolved into the guts of a Fortune Kooky project I had in mind.
-
-Firebase is used for the database and Twilio is used to send messages. 
+Firebase is used for the database and Twilio is used to send messages.
